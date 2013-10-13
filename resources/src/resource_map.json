@@ -1,0 +1,31 @@
+{
+    "media": [
+        {
+            "defName": "IMAGE_STATUS_3",
+            "type": "png",
+            "file": "images/status3.png"
+        },
+        {
+            "defName": "IMAGE_STATUS_2",
+            "type": "png",
+            "file": "images/status2.png"
+        },
+        {
+            "defName": "IMAGE_STATUS_1",
+            "type": "png",
+            "file": "images/status1.png"
+        },
+        {
+            "defName": "IMAGE_MENU_ICON",
+            "type": "png",
+            "file": "images/modern_logo.png"
+        },
+        {
+            "defName": "IMAGE_BACKGROUND",
+            "type": "png",
+            "file": "images/modern_background_new.png"
+        }
+    ],
+    "friendlyVersion": "VERSION",
+    "versionDefName": "APP_RESOURCES"
+}
