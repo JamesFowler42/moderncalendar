@@ -17,5 +17,3 @@ triggered again. After 30 the display reverts to showing the date.
 There are up to three icons under the pebble logo. A right arrow
 indicates a request has been made of the iphone. A left arrow indicates
 a reply has been recieved. The bell indicates an alert has been created.
-
-* STILL BETA - REQUIRES MUCH MORE TESTING *
