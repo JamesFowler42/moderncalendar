@@ -3,7 +3,6 @@
 #include "pebble_fonts.h"
 #include "common.h"
 
-int8_t num_rows;
 Event events[MAX_EVENTS];
 uint8_t count;
 uint8_t received_rows;
@@ -13,6 +12,7 @@ char event_date[50];
 bool bt_ok = false;
 int entry_no = 0;
 int max_entries = 0;
+int alerts_issued = 0;
 
 AppContextRef app_context;
 
@@ -136,11 +136,19 @@ int determine_if_alarm_needed(int num) {
 
   // First alart
   if (event.alarms[0] != -1) {
+	  
   	// Work out the alert interval  
   	int32_t alert_event = event_in_ms - now_in_ms - (event.alarms[0] * 1000);
 
   	// If this is negative then we are after the alert period
   	if (alert_event >= 0) {
+		
+		// Make sure we have the resources for another alert
+		alerts_issued++;
+		if (alerts_issued > MAX_ALLOWABLE_ALERTS)	
+			return alarms_set;
+		
+		// Queue alert
 		queue_alert(num, event.alarms[0], event.title, alert_event);
 		alarms_set++;
     }
@@ -148,11 +156,19 @@ int determine_if_alarm_needed(int num) {
 
   // Second alart
   if (event.alarms[1] != -1) {
-  	// Work out the alert interval  
+
+    // Work out the alert interval  
   	int32_t alert_event = event_in_ms - now_in_ms - (event.alarms[1] * 1000);
 
   	// If this is negative then we are after the alert period
   	if (alert_event >= 0) {
+
+		// Make sure we have the resources for another alert
+		alerts_issued++;
+		if (alerts_issued > MAX_ALLOWABLE_ALERTS)	
+			return alarms_set;
+
+		// Queue alert
 		queue_alert(num + 15, event.alarms[1], event.title, alert_event);
 		alarms_set++;
     }
@@ -184,6 +200,7 @@ void process_events() {
   } else {
     clear_timers();	
 	int alerts = 0;
+	alerts_issued = 0;  
     for (int entry_no = 0; entry_no < max_entries; entry_no++) 
 	  alerts = alerts + determine_if_alarm_needed(entry_no);
 	if (alerts > 0) 

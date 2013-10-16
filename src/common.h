@@ -20,6 +20,8 @@
 #define STATUS_REPLY 2
 #define STATUS_ALERT_SET 3
 	
+#define	MAX_ALLOWABLE_ALERTS 10
+	
 typedef struct {
   uint8_t index;
   char title[21];

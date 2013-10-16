@@ -3,10 +3,15 @@
 #include "pebble_fonts.h"
 #include "common.h"
 
+/*
+ * Version 1.0 - Initial version
+ * Version 1.1 - Altered to ensure that it cannot issue too many alerts and blow up the Pebble
+ */
+	
 #define MY_UUID { 0x69, 0x8B, 0x3E, 0x04, 0xB1, 0x2E, 0x4F, 0xF5, 0xBF, 0xAD, 0x1B, 0xE6, 0xBD, 0xFE, 0xB4, 0xD7 }
 PBL_APP_INFO(MY_UUID,
              "Modern Calendar", "Zalew/Fowler/Baeumle",
-             1, 0, /* App version */
+             1, 1, /* App version */
              RESOURCE_ID_IMAGE_MENU_ICON,
              APP_INFO_WATCH_FACE);
 
