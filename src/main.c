@@ -6,12 +6,13 @@
 /*
  * Version 1.0 - Initial version
  * Version 1.1 - Altered to ensure that it cannot issue too many alerts and blow up the Pebble
+ * Version 1.2 - Added the configurable inverse option
  */
 	
 #define MY_UUID { 0x69, 0x8B, 0x3E, 0x04, 0xB1, 0x2E, 0x4F, 0xF5, 0xBF, 0xAD, 0x1B, 0xE6, 0xBD, 0xFE, 0xB4, 0xD7 }
 PBL_APP_INFO(MY_UUID,
              "Modern Calendar", "Zalew/Fowler/Baeumle",
-             1, 1, /* App version */
+             1, 2, /* App version */
              RESOURCE_ID_IMAGE_MENU_ICON,
              APP_INFO_WATCH_FACE);
 
@@ -35,6 +36,10 @@ HeapBitmap icon_status_3;
 
 Layer status_layer;
 int status_display = 0;
+
+#ifdef INVERSE
+InverterLayer full_inverse_layer;
+#endif
 
 const GPathInfo MINUTE_HAND_PATH_POINTS = {
   4,
@@ -328,6 +333,12 @@ void handle_init(AppContextRef ctx) {
   layer_init(&second_display_layer, window.layer.frame);
   second_display_layer.update_proc = &second_display_layer_update_callback;
   layer_add_child(&window.layer, &second_display_layer);
+	
+  // Configurable inverse
+  #ifdef INVERSE
+  inverter_layer_init(&full_inverse_layer, GRect(0, 0, window.layer.bounds.size.w, window.layer.bounds.size.h));
+  layer_add_child(&window.layer, &full_inverse_layer.layer);
+  #endif
 	
   calendar_init(ctx);
 }

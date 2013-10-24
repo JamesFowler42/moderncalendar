@@ -2,6 +2,8 @@
 #define common_h
 
 #include "pebble_os.h"
+	
+//#define INVERSE
 
 #define RECONNECT_KEY 0
 #define REQUEST_CALENDAR_KEY 1
